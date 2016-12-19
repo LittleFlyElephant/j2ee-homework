@@ -1,4 +1,4 @@
-package user;
+package servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.IOException;
  * Created by raychen on 2016/12/11.
  */
 @WebServlet("/home")
-public class Home extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,7 +21,7 @@ public class Home extends HttpServlet {
             resp.sendRedirect("/login");
         } else {
             System.out.println(session.getAttribute("username"));
-            resp.sendRedirect(req.getContextPath()+"/user/home.html");
+            resp.sendRedirect(req.getContextPath()+ "/home.html");
         }
     }
 
