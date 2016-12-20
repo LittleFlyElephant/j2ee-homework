@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by raychen on 2016/12/19.
  */
-@WebFilter("/home")
+@WebFilter("/login")
 public class EncodeFilter implements Filter{
 
     @Override

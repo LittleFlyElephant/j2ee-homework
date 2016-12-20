@@ -75,7 +75,7 @@ public class DBHelper {
 
     public static void main(String[] args) {
         DBHelper helper = DBHelper.getInstance();
-        ResultSet rs = helper.query("select * from tb_students");
+        ResultSet rs = helper.query("select * from tbl_students");
         try {
             while (rs.next()){
                 System.out.println(rs.getString("username"));
