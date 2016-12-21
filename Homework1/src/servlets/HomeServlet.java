@@ -66,7 +66,7 @@ public class HomeServlet extends HttpServlet {
                 }
             }
             out.println("<form method=\"post\" action=\"/home\">");
-            out.println("<input type=\"submit\" value=\"注销\">");
+            out.println("<input type=\"submit\" name=\"logout\" value=\"注销\">");
             out.println("</form>");
             out.println("</body></html>");
         }

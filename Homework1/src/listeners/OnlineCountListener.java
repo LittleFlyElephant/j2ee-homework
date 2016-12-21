@@ -1,10 +1,9 @@
 package listeners;
 
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 /**
  * Created by raychen on 2016/12/19.
@@ -13,11 +12,21 @@ import javax.servlet.annotation.WebListener;
 public class OnlineCountListener implements ServletContextListener, ServletContextAttributeListener {
 
     private int counter;
-    private String filePath = "";
+    private String filePath = "../../../counter.txt";
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            counter = Integer.parseInt( reader.readLine() );
+            reader.close();
+            System.out.println("Reading" + counter);}
+        catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        ServletContext servletContext= sce.getServletContext();
+        servletContext.setAttribute("pageCounter", Integer.toString(counter));
+        System.out.println("Application initialized");
     }
 
     @Override
