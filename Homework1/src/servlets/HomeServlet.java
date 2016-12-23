@@ -4,7 +4,9 @@ import models.CourseSelectModel;
 import models.UserModel;
 import util.MessageState;
 import util.Result;
+import util.ServletUtil;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +26,17 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
+        ServletContext context = getServletContext();
+        resp.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = resp.getWriter();
         if (session == null || session.getAttribute("username") == null){
-            resp.sendRedirect("/login");
+            out.println("<html>");
+            out.println("<head><title>Vistor</title></head>");
+            out.println("<body>");
+            out.println("<h1>Vistor page</h1>");
+            out.println("<form method=\"post\" action=\"/home\">");
+            out.println("<input type=\"submit\" name=\"login\" value=\"返回登录\">");
+            out.println("</form>");
         } else {
             String username = (String) session.getAttribute("username");
             Result res = UserModel.queryUser(username);
@@ -50,8 +61,6 @@ public class HomeServlet extends HttpServlet {
                 pageState = MessageState.UNKNOWN_USER;
             }
             //输出
-            resp.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = resp.getWriter();
             out.println("<html>");
             out.println("<head><title>"+title+"</title></head>");
             out.println("<body>");
@@ -68,19 +77,28 @@ public class HomeServlet extends HttpServlet {
             out.println("<form method=\"post\" action=\"/home\">");
             out.println("<input type=\"submit\" name=\"logout\" value=\"注销\">");
             out.println("</form>");
-            out.println("</body></html>");
         }
+        out.println("<p>游客数量: "+context.getAttribute("visitor_count")+"</p>");
+        out.println("<p>登录用户数量: "+context.getAttribute("login_count")+"</p>");
+        out.println("<p>总在线数量: "+(Integer.parseInt((String)context.getAttribute("visitor_count"))
+                +Integer.parseInt((String)context.getAttribute("login_count")))+"</p>");
+        out.println("</body></html>");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
+        ServletContext context = getServletContext();
         if (req.getParameter("logout") != null){
             System.out.println("注销会话");
             session.invalidate();
             session = null;
+            ServletUtil.decContext(context, "login_count");
             resp.sendRedirect("/login");
-        } else {
+        } else if (req.getParameter("login") != null){
+            ServletUtil.decContext(context, "visitor_count");
+            resp.sendRedirect("/login");
+        }else {
             resp.sendRedirect("/home");
         }
     }

@@ -4,7 +4,9 @@ import models.CourseSelectModel;
 import models.UserModel;
 import util.MessageState;
 import util.Result;
+import util.ServletUtil;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +34,8 @@ public class LoginServlet extends HttpServlet{
         out.println("<h1>登录页面</h1>");
         out.println("<form method=\"post\" action=\"/login\">");
         out.println("<input type=\"text\" name=\"username\">");
-        out.println("<input type=\"submit\" value=\"登录\">");
+        out.println("<input type=\"submit\" name=\"login\" value=\"登录\">");
+        out.println("<input type=\"submit\" name=\"visit\" value=\"以游客访问\">");
         out.println("</form>");
 
         out.println("</body></html>");
@@ -40,14 +43,24 @@ public class LoginServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        HttpSession session = req.getSession(true);
-        //不为空
-        if (!username.equals("")){
-            session.setAttribute("username", username);
+        ServletContext context = getServletContext();
+        System.out.println("do post");
+        if (req.getParameter("login") != null){
+            System.out.println("login");
+            String username = req.getParameter("username");
+            HttpSession session = req.getSession(true);
+            //不为空
+            if (!username.equals("")){
+                session.setAttribute("username", username);
+                ServletUtil.addContext(context, "login_count");
+                resp.sendRedirect("/home");
+            } else {
+                resp.sendRedirect("/login");
+            }
+        } else if (req.getParameter("visit") != null){
+            System.out.println("visit");
+            ServletUtil.addContext(context, "visitor_count");
             resp.sendRedirect("/home");
-        } else {
-            resp.sendRedirect("/login");
         }
     }
 }
