@@ -1,7 +1,7 @@
-package servlets;
+package servlet;
 
-import models.CourseSelectModel;
-import models.UserModel;
+import model.CourseSelectModel;
+import model.UserModel;
 import util.MessageState;
 import util.Result;
 import util.ServletUtil;

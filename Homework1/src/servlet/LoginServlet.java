@@ -1,9 +1,5 @@
-package servlets;
+package servlet;
 
-import models.CourseSelectModel;
-import models.UserModel;
-import util.MessageState;
-import util.Result;
 import util.ServletUtil;
 
 import javax.servlet.ServletContext;
@@ -15,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 /**
  * Created by raychen on 2016/12/11.

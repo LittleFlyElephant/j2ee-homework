@@ -1,4 +1,4 @@
-package models;
+package model;
 
 import util.DBHelper;
 import util.MessageState;
@@ -7,7 +7,6 @@ import util.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by raychen on 2016/12/19.

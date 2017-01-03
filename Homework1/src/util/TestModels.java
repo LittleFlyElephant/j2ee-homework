@@ -1,7 +1,7 @@
 package util;
 
-import models.CourseSelectModel;
-import models.UserModel;
+import model.CourseSelectModel;
+import model.UserModel;
 
 /**
  * Created by raychen on 2016/12/20.
