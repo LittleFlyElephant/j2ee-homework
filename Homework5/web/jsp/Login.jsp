@@ -9,13 +9,13 @@
 <%@taglib prefix="check" uri="/WEB-INF/my_tags/check.tld" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/common.css" type="text/css">
+    <link rel="stylesheet" href="/Homework5_war_exploded/css/common.css" type="text/css">
     <title>Login</title>
 </head>
 <BODY>
     <check:checkLogin/>
     <h1>登录</h1>
-    <form method="post" action="/login">
+    <form method="post" action="/Homework5_war_exploded/login">
         <input type="text" name="username">
         <input type="password" name="password">
         <input type="submit" name="login" value="登录">

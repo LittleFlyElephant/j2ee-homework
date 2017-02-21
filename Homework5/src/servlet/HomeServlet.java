@@ -1,15 +1,11 @@
 package servlet;
 
-import factory.ServiceFactory;
 import service.HomeService;
-import service.impl.HomeServiceImpl;
-import util.MessageState;
-import util.Result;
-import util.ServletUtil;
-import util.Statistic;
+import util.*;
 import vo.CourseListVO;
 import vo.CourseUserVO;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,12 +22,11 @@ import java.util.ArrayList;
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 
-    private ServiceFactory factory = ServiceFactory.getInstance();
+    @EJB
     private HomeService homeService;
 
     public HomeServlet() {
         super();
-        homeService = factory.getHomeService();
     }
 
     @Override
@@ -71,12 +66,12 @@ public class HomeServlet extends HttpServlet {
             session.invalidate();
             session = null;
             ServletUtil.decContext(context, "login_count");
-            resp.sendRedirect("/login");
+            resp.sendRedirect(Config.URL_ROOT+"/login");
         } else if (req.getParameter("login") != null) {
             ServletUtil.decContext(context, "visitor_count");
-            resp.sendRedirect("/login");
+            resp.sendRedirect(Config.URL_ROOT+"/login");
         } else {
-            resp.sendRedirect("/home");
+            resp.sendRedirect(Config.URL_ROOT+"/home");
         }
     }
 }

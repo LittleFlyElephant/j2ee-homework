@@ -1,4 +1,5 @@
-<%@ page import="util.MessageState" %><%--
+<%@ page import="util.MessageState" %>
+<%@ page import="util.Config" %><%--
   Created by IntelliJ IDEA.
   User: raychen
   Date: 2016/12/29
@@ -9,7 +10,7 @@
 <%@ taglib prefix="check" uri="/WEB-INF/my_tags/check.tld" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/common.css" type="text/css">
+    <link rel="stylesheet" href="/Homework5_war_exploded/css/common.css" type="text/css">
     <title>Home</title>
 </head>
 <body>
@@ -51,7 +52,7 @@
             </table>
             <%}%>
             <br>
-            <form method="post" action="/home">
+            <form method="post" action="/Homework5_war_exploded/home">
                 <input type="submit" value="注销" name="logout">
             </form>
             <table>

@@ -1,13 +1,14 @@
 package servlet;
 
-import factory.ServiceFactory;
+import factory.EJBFactory;
 import model.User;
 import service.LoginService;
-import util.MessageState;
+import util.Config;
 import util.Result;
 import util.ServletUtil;
 import util.Statistic;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created by raychen on 2016/12/11.
@@ -24,12 +24,12 @@ import java.io.PrintWriter;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet{
 
-    private ServiceFactory factory = ServiceFactory.getInstance();
+    @EJB
     private LoginService loginService;
 
     public LoginServlet() {
         super();
-        loginService = factory.getLoginService();
+//        loginService = (LoginService) EJBFactory.getEJB("ejb:/Homework5_war_exploded//LoginServiceEJB!"+LoginService.class.getName());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet{
                 session.setAttribute("username", user.getUsername());
                 session.setAttribute("user_id", user.getId());
                 ServletUtil.addContext(context, "login_count");
-                resp.sendRedirect("/home");
+                resp.sendRedirect(Config.URL_ROOT+"/home");
             } else {
                 Result res = new Result();
                 res.setMessage("User not found!");
