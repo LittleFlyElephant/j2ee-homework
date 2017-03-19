@@ -2,4 +2,5 @@
 Homework1.iml
 out/
 .DS_Store
-
+*.jar
+*.zip
